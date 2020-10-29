@@ -68,7 +68,7 @@ public class FieldVerifierTest {
     @Test
     public void testIsNotValidRoman() {
         FieldVerifier service = new FieldVerifier();
-        boolean result = service.isValidRoman("e");
+        boolean result = service.isValidRoman("S");
         assertEquals(false, result);
     }
 
