@@ -8,8 +8,6 @@ package org.insset.server;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import java.util.Map;
 import java.util.TreeMap;
-import static org.apache.james.mime4j.field.Fields.date;
-import static org.apache.xalan.lib.ExsltDatetime.date;
 import org.insset.client.service.RomanConverterService;
 import java.util.Calendar;
 
@@ -22,7 +20,7 @@ public class RomanConverterServiceImpl extends RemoteServiceServlet implements
         RomanConverterService {
 
     @Override
-    public String convertDateYears(String nbr) throws IllegalArgumentException {
+    public String convertDateYears(String date) throws IllegalArgumentException {
         // Format d'entrée souhaité : 22021596
         // 22 Février 1596
 
