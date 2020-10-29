@@ -16,6 +16,7 @@ import org.insset.client.message.dialogbox.DialogBoxInssetPresenter;
 import org.insset.client.service.RomanConverterService;
 import org.insset.client.service.RomanConverterServiceAsync;
 import org.insset.shared.FieldVerifier;
+import com.google.gwt.user.client.Window;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -185,9 +186,10 @@ public class CalculatorRomainPresenter extends Composite {
         }
         //call server
         service.convertDateYears(valD.getText(), new AsyncCallback<String>() {
+            
             public void onFailure(Throwable caught) {
                 errorLabelD.addStyleName("serverResponseLabelError");
-                errorLabelD.setText("Format incorect");
+                errorLabelD.setText("Format incorrect");
                 return;
             }
 

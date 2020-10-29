@@ -234,10 +234,6 @@ public class RomanConverterServiceImpl extends RemoteServiceServlet implements
     @Override
     public String convertArabeToRoman(Integer number) throws IllegalArgumentException {
         int nombre = number;
-        if (nombre < 1 || nombre> 1999)
-        {
-            return "Le nombre saisi n'est pas valide entre 1 et 1999";
-        }
         String calcul = "";
         
         while (nombre >=1000)

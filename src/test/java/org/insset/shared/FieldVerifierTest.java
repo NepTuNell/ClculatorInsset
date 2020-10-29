@@ -71,6 +71,16 @@ public class FieldVerifierTest {
         boolean result = service.isValidDecimal(-1);
         assertEquals(false, result);
     }
+    
+    /**
+     * Test of isValidDecimal method, of class FieldVerifier.
+     */
+    @Test
+    public void testIsNotValidDecimal2() {
+        FieldVerifier service = new FieldVerifier();
+        boolean result = service.isValidDecimal(0);
+        assertEquals(false, result);
+    }
 
     /**
      * Test of isValidRoman method, of class FieldVerifier.
