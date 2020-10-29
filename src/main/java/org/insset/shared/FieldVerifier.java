@@ -57,7 +57,27 @@ public class FieldVerifier {
     }
 
     public static boolean isValidRoman(String nbr) {
-        //Implement your code
+        if (nbr.trim().length() == 0) {
+            return false;
+        }
+        
+        char[] expected  = {'I', 'V', 'X', 'L', 'C', 'D', 'M'};
+        char[] caracters = nbr.toCharArray();
+        Boolean exist = false;
+        
+        for (char i: caracters) {
+            exist = false;
+            for (char j: caracters) {
+                if (i == j) {
+                    exist = true;
+                }
+            }
+            
+            if (false == exist) {
+                return false;
+            }
+        }
+      
         return true;
     }
 
