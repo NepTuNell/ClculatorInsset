@@ -46,21 +46,21 @@ public class RomanConverterServiceImpl extends RemoteServiceServlet implements
         for (char lettre : contenu)
         {
             if (!Character.isDigit(lettre))
-                return "Le jour n'est pas valide.";
+                return "La date n'est pas valide.";
         }
 
         contenu = mois.toCharArray();
         for (char lettre : contenu)
         {
             if (!Character.isDigit(lettre))
-                return "Le mois n'est pas valide.";
+                return "La date n'est pas valide.";
         }
 
         contenu = annee.toCharArray();
         for (char lettre : contenu)
         {
             if (!Character.isDigit(lettre))
-                return "L'année n'est pas valide.";
+                return "La date n'est pas valide.";
         }
 
         // ---------------------------------------------
@@ -68,7 +68,7 @@ public class RomanConverterServiceImpl extends RemoteServiceServlet implements
         // ---------------------------------------------
         // Mois ------------------------------
         if (Integer.parseInt(mois) < 1 || Integer.parseInt(mois) > 12)
-            return "Le mois n'est pas valide.";
+            return "La date n'est pas valide.";
 
         // Jour ------------------------------
         // Janvier 01 - Mars 03 - Mai 05 - Juillet 07 - Aout 08 - octobre 10 - decembre 12
@@ -78,7 +78,7 @@ public class RomanConverterServiceImpl extends RemoteServiceServlet implements
                 Integer.parseInt(mois) == 12)
         {
             if (Integer.parseInt(jour) < 1 || Integer.parseInt(jour) > 31)
-                return "Le jour n'est pas valide.";
+                return "La date n'est pas valide.";
         }
 
         // Avril 04 - Juin 06 - septembre 09 - Novembre 11
@@ -86,7 +86,7 @@ public class RomanConverterServiceImpl extends RemoteServiceServlet implements
                 Integer.parseInt(mois) == 9 || Integer.parseInt(mois) == 11)
         {
             if (Integer.parseInt(jour) < 1 || Integer.parseInt(jour) > 30)
-                return "Le jour n'est pas valide.";
+                return "La date n'est pas valide.";
         }
 
         // Février
@@ -101,19 +101,19 @@ public class RomanConverterServiceImpl extends RemoteServiceServlet implements
             if (anneeBissextile)
             {
                 if (Integer.parseInt(jour) < 1 || Integer.parseInt(jour) > 29)
-                    return "Le jour n'est pas valide.";
+                    return "La date n'est pas valide.";
             }
             else
             {
                 if (Integer.parseInt(jour) < 1 || Integer.parseInt(jour) > 28)
-                    return "Le jour n'est pas valide.";
+                    return "La date n'est pas valide.";
             }
         }
 
         // Année ------------------------------
         if (Integer.parseInt(annee) < 1000 ||
                 Integer.parseInt(annee) > Calendar.getInstance().get(Calendar.YEAR))
-            return "L'année n'est pas valide.";
+            return "La date n'est pas valide.";
 
         // ---------------------------------------------
         // 5 - Convertir le jour
