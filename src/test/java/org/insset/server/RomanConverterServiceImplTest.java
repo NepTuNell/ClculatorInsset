@@ -29,4 +29,28 @@ public class RomanConverterServiceImplTest {
         assertEquals(10, res);
     }
     
+    @Test
+    public void testConvertRomanToArabe2() {
+        RomanConverterServiceImpl service = new RomanConverterServiceImpl();
+        int res = service.convertRomanToArabe("MMD");
+        assertEquals(2500, res);
+    }
+    
+    @Test
+    public void testConvertArabeToRoman() {
+        RomanConverterServiceImpl service = new RomanConverterServiceImpl();
+        String res = service.convertArabeToRoman(10);
+        assertEquals("X", res);
+    }
+    
+    /**
+     * Test of convertRomanToArabe method, of class RomanConverterServiceImpl.
+     */
+    @Test
+    public void testConvertDate() {
+        RomanConverterServiceImpl service = new RomanConverterServiceImpl();
+        String res = service.convertDateYears("12/08/2014");
+        assertEquals("XII/VIII/MMXIV", res);
+    }
+    
 }
