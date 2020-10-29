@@ -65,23 +65,23 @@ public class FieldVerifier {
             return false;
         }
         
-        char[] expected  = {'I', 'V', 'X', 'L', 'C', 'D', 'M'};
+        char[] expected  = {'I', 'V', 'X', 'L', 'C', 'D', 'M'};    
         char[] caracters = nbr.toCharArray();
         Boolean exist = false;
-        
+
         for (char i: caracters) {
             exist = false;
-            for (char j: caracters) {
+            for (char j: expected) {
                 if (i == j) {
                     exist = true;
                 }
             }
-            
-            if (!exist) {
+
+            if (false == exist) {
                 return false;
             }
         }
-      
+        
         return true;
     }
 
