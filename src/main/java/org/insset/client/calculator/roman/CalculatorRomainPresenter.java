@@ -125,13 +125,14 @@ public class CalculatorRomainPresenter extends Composite {
     private void convertRomanToArabe() {
         if (!FieldVerifier.isValidRoman(valR.getText())) {
             errorLabelRToA.addStyleName("serverResponseLabelError");
-            errorLabelRToA.setText("Format incorect");
+            errorLabelRToA.setText("Format incorrect");
             return;
         }
         service.convertRomanToArabe(valR.getText(), new AsyncCallback<Integer>() {
             public void onFailure(Throwable caught) {
-                // Show the RPC error message to the user
-//                Window.alert(SERVER_ERROR);
+                errorLabelRToA.addStyleName("serverResponseLabelError");
+                errorLabelRToA.setText("Format incorrect");
+                return;
             }
 
             public void onSuccess(Integer result) {
@@ -150,17 +151,19 @@ public class CalculatorRomainPresenter extends Composite {
             value = Integer.parseInt(valA.getText());
         } catch (NumberFormatException e) {
             errorLabelAToR.addStyleName("serverResponseLabelError");
-            errorLabelAToR.setText("Format incorect");
+            errorLabelAToR.setText("Format incorrect");
             return;
         }
         if (!FieldVerifier.isValidDecimal(value)) {
             errorLabelAToR.addStyleName("serverResponseLabelError");
-            errorLabelAToR.setText("Format incorect");
+            errorLabelAToR.setText("Format incorrect");
             return;
         }
         service.convertArabeToRoman(Integer.parseInt(valA.getText()), new AsyncCallback<String>() {
             public void onFailure(Throwable caught) {
-                // Show the RPC error message to the user
+                errorLabelAToR.addStyleName("serverResponseLabelError");
+                errorLabelAToR.setText("Format incorrect");
+                return;
             }
 
             public void onSuccess(String result) {
@@ -176,15 +179,16 @@ public class CalculatorRomainPresenter extends Composite {
     private void convertDate() {
         //Verif
         if (!FieldVerifier.isValidDate(valD.getText())) {
-            errorLabelAToR.addStyleName("serverResponseLabelError");
-            errorLabelAToR.setText("Format incorect");
+            errorLabelD.addStyleName("serverResponseLabelError");
+            errorLabelD.setText("Format incorect");
             return;
         }
         //call server
         service.convertDateYears(valD.getText(), new AsyncCallback<String>() {
             public void onFailure(Throwable caught) {
-                // Show the RPC error message to the user
-//                Window.alert(SERVER_ERROR);
+                /*errorLabelD.addStyleName("serverResponseLabelError");
+                errorLabelD.setText("Format incorect");*/
+                return;
             }
 
             public void onSuccess(String result) {

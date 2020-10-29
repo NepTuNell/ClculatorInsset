@@ -9,7 +9,6 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import java.util.Map;
 import java.util.TreeMap;
 import org.insset.client.service.RomanConverterService;
-import java.util.Calendar;
 
 /**
  *
@@ -20,103 +19,17 @@ public class RomanConverterServiceImpl extends RemoteServiceServlet implements
         RomanConverterService {
 
     @Override
-    public String convertDateYears(String date) throws IllegalArgumentException {
-        // Format d'entrée souhaité : 22021596
-        // 22 Février 1596
-
+    public String convertDateYears(String date) throws IllegalArgumentException 
+    {
         // ---------------------------------------------
-        // 1 - Empêcher un mauvais format
-        // ---------------------------------------------
-        if (date.length() != 10)
-            return "La date n'est pas valide.";
-
-        // ---------------------------------------------
-        // 2 - Séparer les blocs
+        // 1 - Séparer les blocs
         // ---------------------------------------------
         String jour = "" + date.substring(0, 2);
         String mois = "" + date.substring(3, 5);
-        String annee = "" + date.substring(6, 10);
+        String annee = "" + date.substring(6, 10);   
 
         // ---------------------------------------------
-        // 3 - Vérifier la présence de chiffre uniquement
-        // ---------------------------------------------
-        char[] contenu;
-
-        contenu = jour.toCharArray();
-        for (char lettre : contenu)
-        {
-            if (!Character.isDigit(lettre))
-                return "La date n'est pas valide.";
-        }
-
-        contenu = mois.toCharArray();
-        for (char lettre : contenu)
-        {
-            if (!Character.isDigit(lettre))
-                return "La date n'est pas valide.";
-        }
-
-        contenu = annee.toCharArray();
-        for (char lettre : contenu)
-        {
-            if (!Character.isDigit(lettre))
-                return "La date n'est pas valide.";
-        }
-
-        // ---------------------------------------------
-        // 4 - Vérifier si les blocs sont corrects
-        // ---------------------------------------------
-        // Mois ------------------------------
-        if (Integer.parseInt(mois) < 1 || Integer.parseInt(mois) > 12)
-            return "La date n'est pas valide.";
-
-        // Jour ------------------------------
-        // Janvier 01 - Mars 03 - Mai 05 - Juillet 07 - Aout 08 - octobre 10 - decembre 12
-        if (Integer.parseInt(mois) == 1 || Integer.parseInt(mois) == 3 ||
-                Integer.parseInt(mois) == 5 || Integer.parseInt(mois) == 7 ||
-                Integer.parseInt(mois) == 8 || Integer.parseInt(mois) == 10 ||
-                Integer.parseInt(mois) == 12)
-        {
-            if (Integer.parseInt(jour) < 1 || Integer.parseInt(jour) > 31)
-                return "La date n'est pas valide.";
-        }
-
-        // Avril 04 - Juin 06 - septembre 09 - Novembre 11
-        if (Integer.parseInt(mois) == 4 || Integer.parseInt(mois) == 6 ||
-                Integer.parseInt(mois) == 9 || Integer.parseInt(mois) == 11)
-        {
-            if (Integer.parseInt(jour) < 1 || Integer.parseInt(jour) > 30)
-                return "La date n'est pas valide.";
-        }
-
-        // Février
-        if (Integer.parseInt(mois) == 2)
-        {
-            boolean anneeBissextile = false;
-
-            if ((Integer.parseInt(annee) % 4 == 0 && Integer.parseInt(annee) % 100 != 0) ||
-                    Integer.parseInt(annee) % 400 == 0)
-                anneeBissextile = true;
-
-            if (anneeBissextile)
-            {
-                if (Integer.parseInt(jour) < 1 || Integer.parseInt(jour) > 29)
-                    return "La date n'est pas valide.";
-            }
-            else
-            {
-                if (Integer.parseInt(jour) < 1 || Integer.parseInt(jour) > 28)
-                    return "La date n'est pas valide.";
-            }
-        }
-
-        // Année ------------------------------
-        if (Integer.parseInt(annee) < 1000 ||
-                Integer.parseInt(annee) > Calendar.getInstance().get(Calendar.YEAR))
-            return "La date n'est pas valide.";
-
-        // ---------------------------------------------
-        // 5 - Convertir le jour
+        // 2 - Convertir le jour
         // ---------------------------------------------
         int nombreJour = Integer.parseInt(jour);
         String calculJour = "";

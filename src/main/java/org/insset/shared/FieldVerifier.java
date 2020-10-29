@@ -1,5 +1,7 @@
 package org.insset.shared;
 
+import java.util.Calendar;
+
 /**
  * <p>
  * FieldVerifier validates that the name the user enters is valid.
@@ -86,7 +88,97 @@ public class FieldVerifier {
     }
 
     public static boolean isValidDate(String date) {
-        //Implement your code
+        // ---------------------------------------------
+        // 1 - Empêcher un mauvais format
+        // ---------------------------------------------
+        if (date.length() != 10)
+            return false;
+        
+        // ---------------------------------------------
+        // 2 - Séparer les blocs
+        // ---------------------------------------------
+        String jour = "" + date.substring(0, 2);
+        String mois = "" + date.substring(3, 5);
+        String annee = "" + date.substring(6, 10);
+        
+        // ---------------------------------------------
+        // 3 - Vérifier la présence de chiffre uniquement
+        // ---------------------------------------------
+        char[] contenu;
+
+        contenu = jour.toCharArray();        
+        for (char lettre : contenu)
+        {
+            if (!Character.isDigit(lettre))
+                return false;
+        }
+
+        contenu = mois.toCharArray();
+        for (char lettre : contenu)
+        {
+            if (!Character.isDigit(lettre))
+                return false;
+        }
+
+        contenu = annee.toCharArray();
+        for (char lettre : contenu)
+        {
+            if (!Character.isDigit(lettre))
+                return false;
+        }
+        
+        // ---------------------------------------------
+        // 4 - Vérifier si les blocs sont corrects
+        // ---------------------------------------------
+        // Mois ------------------------------
+        if (Integer.parseInt(mois) < 1 || Integer.parseInt(mois) > 12)
+            return false;
+
+        // Jour ------------------------------
+        // Janvier 01 - Mars 03 - Mai 05 - Juillet 07 - Aout 08 - octobre 10 - decembre 12
+        if (Integer.parseInt(mois) == 1 || Integer.parseInt(mois) == 3 ||
+                Integer.parseInt(mois) == 5 || Integer.parseInt(mois) == 7 ||
+                Integer.parseInt(mois) == 8 || Integer.parseInt(mois) == 10 ||
+                Integer.parseInt(mois) == 12)
+        {
+            if (Integer.parseInt(jour) < 1 || Integer.parseInt(jour) > 31)
+                return false;
+        }
+
+        // Avril 04 - Juin 06 - septembre 09 - Novembre 11
+        if (Integer.parseInt(mois) == 4 || Integer.parseInt(mois) == 6 ||
+                Integer.parseInt(mois) == 9 || Integer.parseInt(mois) == 11)
+        {
+            if (Integer.parseInt(jour) < 1 || Integer.parseInt(jour) > 30)
+                return false;
+        }
+
+        // Février
+        if (Integer.parseInt(mois) == 2)
+        {
+            boolean anneeBissextile = false;
+
+            if ((Integer.parseInt(annee) % 4 == 0 && Integer.parseInt(annee) % 100 != 0) ||
+                    Integer.parseInt(annee) % 400 == 0)
+                anneeBissextile = true;
+
+            if (anneeBissextile)
+            {
+                if (Integer.parseInt(jour) < 1 || Integer.parseInt(jour) > 29)
+                    return false;
+            }
+            else
+            {
+                if (Integer.parseInt(jour) < 1 || Integer.parseInt(jour) > 28)
+                    return false;
+            }
+        }
+
+        // Année ------------------------------
+        if (Integer.parseInt(annee) < 1000 ||
+                Integer.parseInt(annee) > Calendar.getInstance().get(Calendar.YEAR))
+            return false;
+        
         return true;
     }
 }
