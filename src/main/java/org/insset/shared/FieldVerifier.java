@@ -96,7 +96,7 @@ public class FieldVerifier {
                 }
             }
             
-            if (false == exist) {
+            if (!exist) {
                 return false;
             }
         }
