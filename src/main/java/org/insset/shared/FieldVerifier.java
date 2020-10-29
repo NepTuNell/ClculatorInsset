@@ -51,8 +51,31 @@ public class FieldVerifier {
      * @param name the name to validate
      * @return true if valid, false if invalid
      */
-    public static boolean isValidDecimal(Integer nbr) {
-        //Implement your code
+    public static boolean isValidDecimal(Integer nbrI) {
+        
+        String nbr = nbrI.toString();
+        
+        if (nbr.trim().length() == 0) {
+            return false;
+        }
+        
+        char[] expected  = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+        char[] caracters = nbr.toCharArray();
+        Boolean exist = false;
+        
+        for (char i: caracters) {
+            exist = false;
+            for (char j: caracters) {
+                if (i == j) {
+                    exist = true;
+                }
+            }
+            
+            if (false == exist) {
+                return false;
+            }
+        }
+      
         return true;
     }
 
