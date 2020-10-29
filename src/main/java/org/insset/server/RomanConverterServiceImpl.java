@@ -8,7 +8,10 @@ package org.insset.server;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import java.util.Map;
 import java.util.TreeMap;
+import static org.apache.james.mime4j.field.Fields.date;
+import static org.apache.xalan.lib.ExsltDatetime.date;
 import org.insset.client.service.RomanConverterService;
+import java.util.Calendar;
 
 /**
  *
@@ -20,8 +23,257 @@ public class RomanConverterServiceImpl extends RemoteServiceServlet implements
 
     @Override
     public String convertDateYears(String nbr) throws IllegalArgumentException {
-        //Implement your code
-        return "XV/III/MX";
+        // Format d'entrée souhaité : 22021596
+        // 22 Février 1596
+
+        // ---------------------------------------------
+        // 1 - Empêcher un mauvais format
+        // ---------------------------------------------
+        if (date.length() != 10)
+            return "La date n'est pas valide.";
+
+        // ---------------------------------------------
+        // 2 - Séparer les blocs
+        // ---------------------------------------------
+        String jour = "" + date.substring(0, 2);
+        String mois = "" + date.substring(3, 5);
+        String annee = "" + date.substring(6, 10);
+
+        // ---------------------------------------------
+        // 3 - Vérifier la présence de chiffre uniquement
+        // ---------------------------------------------
+        char[] contenu;
+
+        contenu = jour.toCharArray();
+        for (char lettre : contenu)
+        {
+            if (!Character.isDigit(lettre))
+                return "Le jour n'est pas valide.";
+        }
+
+        contenu = mois.toCharArray();
+        for (char lettre : contenu)
+        {
+            if (!Character.isDigit(lettre))
+                return "Le mois n'est pas valide.";
+        }
+
+        contenu = annee.toCharArray();
+        for (char lettre : contenu)
+        {
+            if (!Character.isDigit(lettre))
+                return "L'année n'est pas valide.";
+        }
+
+        // ---------------------------------------------
+        // 4 - Vérifier si les blocs sont corrects
+        // ---------------------------------------------
+        // Mois ------------------------------
+        if (Integer.parseInt(mois) < 1 || Integer.parseInt(mois) > 12)
+            return "Le mois n'est pas valide.";
+
+        // Jour ------------------------------
+        // Janvier 01 - Mars 03 - Mai 05 - Juillet 07 - Aout 08 - octobre 10 - decembre 12
+        if (Integer.parseInt(mois) == 1 || Integer.parseInt(mois) == 3 ||
+                Integer.parseInt(mois) == 5 || Integer.parseInt(mois) == 7 ||
+                Integer.parseInt(mois) == 8 || Integer.parseInt(mois) == 10 ||
+                Integer.parseInt(mois) == 12)
+        {
+            if (Integer.parseInt(jour) < 1 || Integer.parseInt(jour) > 31)
+                return "Le jour n'est pas valide.";
+        }
+
+        // Avril 04 - Juin 06 - septembre 09 - Novembre 11
+        if (Integer.parseInt(mois) == 4 || Integer.parseInt(mois) == 6 ||
+                Integer.parseInt(mois) == 9 || Integer.parseInt(mois) == 11)
+        {
+            if (Integer.parseInt(jour) < 1 || Integer.parseInt(jour) > 30)
+                return "Le jour n'est pas valide.";
+        }
+
+        // Février
+        if (Integer.parseInt(mois) == 2)
+        {
+            boolean anneeBissextile = false;
+
+            if ((Integer.parseInt(annee) % 4 == 0 && Integer.parseInt(annee) % 100 != 0) ||
+                    Integer.parseInt(annee) % 400 == 0)
+                anneeBissextile = true;
+
+            if (anneeBissextile)
+            {
+                if (Integer.parseInt(jour) < 1 || Integer.parseInt(jour) > 29)
+                    return "Le jour n'est pas valide.";
+            }
+            else
+            {
+                if (Integer.parseInt(jour) < 1 || Integer.parseInt(jour) > 28)
+                    return "Le jour n'est pas valide.";
+            }
+        }
+
+        // Année ------------------------------
+        if (Integer.parseInt(annee) < 1000 ||
+                Integer.parseInt(annee) > Calendar.getInstance().get(Calendar.YEAR))
+            return "L'année n'est pas valide.";
+
+        // ---------------------------------------------
+        // 5 - Convertir le jour
+        // ---------------------------------------------
+        int nombreJour = Integer.parseInt(jour);
+        String calculJour = "";
+
+        while (nombreJour >= 10)
+        {
+            calculJour += "X";
+            nombreJour -= 10;
+        }
+
+        while (nombreJour >= 9)
+        {
+            calculJour += "IX";
+            nombreJour -= 9;
+        }
+
+        while (nombreJour >= 5)
+        {
+            calculJour += "V";
+            nombreJour -= 5;
+        }
+
+        while (nombreJour >= 4)
+        {
+            calculJour += "IV";
+            nombreJour -= 4;
+        }
+
+        while (nombreJour >= 1)
+        {
+            calculJour += "I";
+            nombreJour -= 1;
+        }
+
+        // ---------------------------------------------
+        // 6 - Convertir le mois
+        // ---------------------------------------------
+        int nombreMois = Integer.parseInt(mois);
+        String calculMois = "";
+
+        while (nombreMois >= 10)
+        {
+            calculMois += "X";
+            nombreMois -= 10;
+        }
+
+        while (nombreMois >= 9)
+        {
+            calculMois += "IX";
+            nombreMois -= 9;
+        }
+
+        while (nombreMois >= 5)
+        {
+            calculMois += "V";
+            nombreMois -= 5;
+        }
+
+        while (nombreMois >= 4)
+        {
+            calculMois += "IV";
+            nombreMois -= 4;
+        }
+
+        while (nombreMois >= 1)
+        {
+            calculMois += "I";
+            nombreMois -= 1;
+        }
+
+        // ---------------------------------------------
+        // 7 - Convertir l'année
+        // ---------------------------------------------
+        int nombreAnnee = Integer.parseInt(annee);
+        String calculAnnee = "";
+
+        while (nombreAnnee >= 1000)
+        {
+            calculAnnee += "M";
+            nombreAnnee -= 1000;
+        }
+
+        while (nombreAnnee >= 900)
+        {
+            calculAnnee += "CM";
+            nombreAnnee -= 900;
+        }
+
+        while (nombreAnnee >= 500)
+        {
+            calculAnnee += "D";
+            nombreAnnee -= 500;
+        }
+
+        while (nombreAnnee >= 400)
+        {
+            calculAnnee += "CD";
+            nombreAnnee -= 400;
+        }
+
+        while (nombreAnnee >= 100)
+        {
+            calculAnnee += "C";
+            nombreAnnee -= 100;
+        }
+
+        while (nombreAnnee >= 90)
+        {
+            calculAnnee += "XC";
+            nombreAnnee -= 90;
+        }
+
+        while (nombreAnnee >= 50)
+        {
+            calculAnnee += "L";
+            nombreAnnee -= 50;
+        }
+
+        while (nombreAnnee >= 40)
+        {
+            calculAnnee += "XL";
+            nombreAnnee -= 40;
+        }
+
+        while (nombreAnnee >= 10)
+        {
+            calculAnnee += "X";
+            nombreAnnee -= 10;
+        }
+
+        while (nombreAnnee >= 9)
+        {
+            calculAnnee += "IX";
+            nombreAnnee -= 9;
+        }
+
+        while (nombreAnnee >= 5)
+        {
+            calculAnnee += "V";
+            nombreAnnee -= 5;
+        }
+
+        while (nombreAnnee >= 4)
+        {
+            calculAnnee += "IV";
+            nombreAnnee -= 4;
+        }
+
+        while (nombreAnnee >= 1)
+        {
+            calculAnnee += "I";
+            nombreAnnee -= 1;
+        }
+
+        return calculJour + "/" + calculMois + "/" + calculAnnee;
     }
 
     @Override
