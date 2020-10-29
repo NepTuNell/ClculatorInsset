@@ -183,10 +183,10 @@ public class FieldVerifierTest {
     }
     
     @Test
-    public void testconvertDateYearsValideMoisFev() {
+    public void testconvertDateYearsInvMoisFev() {
         FieldVerifier projet = new FieldVerifier();
         boolean janvierInvalide = projet.isValidDate("32/01/2020");
-        assertEquals(true, janvierInvalide);
+        assertEquals(false, janvierInvalide);
     }
     
     @Test
@@ -197,10 +197,10 @@ public class FieldVerifierTest {
     }
     
     @Test
-    public void testconvertDateYearsValideMoisMars() {
+    public void testconvertDateYearsInvMoisMars() {
         FieldVerifier projet = new FieldVerifier();
         boolean moisImpairInvalide = projet.isValidDate("32/03/2020");
-        assertEquals(true, moisImpairInvalide);
+        assertEquals(false, moisImpairInvalide);
     }
     
     @Test
@@ -214,7 +214,7 @@ public class FieldVerifierTest {
     public void testconvertDateYearsValideMoisMaiInv() {
         FieldVerifier projet = new FieldVerifier();
         boolean maiInvalide = projet.isValidDate("32/05/2020");
-        assertEquals(true, maiInvalide);
+        assertEquals(false, maiInvalide);
     }
     
     @Test
