@@ -5,6 +5,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -87,7 +88,7 @@ public class CalculatorRomainPresenter extends Composite {
             public void onClick(ClickEvent event) {
                 convertRomanToArabe();
             }
-
+            
         });
         boutonClearA.addClickHandler(new ClickHandler() {
             @Override
@@ -123,20 +124,21 @@ public class CalculatorRomainPresenter extends Composite {
      * call server
      */
     private void convertRomanToArabe() {
-        if (!FieldVerifier.isValidRoman(valR.getText())) {
+        if (!FieldVerifier.isValidRoman(valR.getText().toString())) {
             errorLabelRToA.addStyleName("serverResponseLabelError");
-            errorLabelRToA.setText("Format incorect");
+            errorLabelRToA.setText("Format incorrect");
             return;
         }
         service.convertRomanToArabe(valR.getText(), new AsyncCallback<Integer>() {
             public void onFailure(Throwable caught) {
+                new DialogBoxInssetPresenter("Convertion Roman to arabe", "Erreur lors de la convertion", "Erreur lors de la convertion");
                 // Show the RPC error message to the user
 //                Window.alert(SERVER_ERROR);
             }
 
             public void onSuccess(Integer result) {
                 errorLabelRToA.setText(" ");
-                new DialogBoxInssetPresenter("Convertion Roman to arabe", valR.getText(), String.valueOf(result));
+                new DialogBoxInssetPresenter("Convertion Roman to arabe", valA.getText(), String.valueOf(result));
             }
         });
     }
@@ -150,7 +152,7 @@ public class CalculatorRomainPresenter extends Composite {
             value = Integer.parseInt(valA.getText());
         } catch (NumberFormatException e) {
             errorLabelAToR.addStyleName("serverResponseLabelError");
-            errorLabelAToR.setText("Format incorect");
+            errorLabelAToR.setText("Format incorrect");
             return;
         }
         if (!FieldVerifier.isValidDecimal(value)) {

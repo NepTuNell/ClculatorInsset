@@ -1,5 +1,7 @@
 package org.insset.shared;
 
+import java.util.Arrays;
+
 /**
  * <p>
  * FieldVerifier validates that the name the user enters is valid.
@@ -55,12 +57,44 @@ public class FieldVerifier {
         //Implement your code
         return true;
     }
-
+    
+    /**
+     * Verifies that the specified value is valide.
+     * 
+     * @param nbr
+     * @return true if valid, false if invalid
+     */
     public static boolean isValidRoman(String nbr) {
-        //Implement your code
+        
+        if (nbr.trim().length() == 0) {
+            return false;
+        }
+        
+        char[] expected  = {'I', 'V', 'X', 'L', 'C', 'D', 'M'};
+        char[] caracters = nbr.toCharArray();
+        Boolean exist = false;
+        
+        for (char i: caracters) {
+            exist = false;
+            for (char j: caracters) {
+                if (i == j) {
+                    exist = true;
+                }
+            }
+            
+            if (false == exist) {
+                return false;
+            }
+        }
+      
         return true;
     }
-
+    
+    /**
+     * 
+     * @param date
+     * @return 
+     */
     public static boolean isValidDate(String date) {
         //Implement your code
         return true;
