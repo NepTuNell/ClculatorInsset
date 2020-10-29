@@ -7,24 +7,21 @@ package org.insset.server;
 
 import java.util.Arrays;
 import java.util.Collection;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runners.Parameterized;
+import org.insset.server.RomanConverterServiceImpl;
 
 /**
  *
  * @author insset
  */
-public class RomanConverterServiceImplTest {
-    
+public class RomanConverterServiceImplIt {
+
     private final String str;
     private final int result;
     
-    public RomanConverterServiceImplTest(final String str, final int result) {
+    public RomanConverterServiceImplIt(final String str, final int result) {
         this.str = str;
         this.result = result;
     }
@@ -57,5 +54,6 @@ public class RomanConverterServiceImplTest {
         int res = service.convertRomanToArabe(this.str);
         assertEquals(res, this.result);
     }
+    
     
 }
