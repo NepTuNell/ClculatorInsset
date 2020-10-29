@@ -68,9 +68,80 @@ public class RomanConverterServiceImpl extends RemoteServiceServlet implements
     }
 
     @Override
-    public String convertArabeToRoman(Integer nbr) throws IllegalArgumentException {
-        //Implement your code
-        return new String("XVXX");
+    public String convertArabeToRoman(Integer number) throws IllegalArgumentException {
+        int nombre = number;
+        if (nombre < 1 || nombre> 1999)
+        {
+            return "Le nombre saisi n'est pas valide entre 1 et 1999";
+        }
+        String calcul = "";
+        
+        while (nombre >=1000)
+        {
+         calcul += "M";
+         nombre -= 1000;
+        }
+        while (nombre >=900)
+        {
+         calcul += "CM";
+         nombre -= 900;
+        }
+        while (nombre >= 500)
+        {
+         calcul += "D";
+         nombre -= 500;
+        }
+        while (nombre >=400)
+        {
+         calcul +="CD";
+         nombre -=400;
+        }
+        while (nombre >=100)
+        {
+         calcul +="C";
+         nombre -=100;
+        }
+        while (nombre >=90)
+        {
+         calcul +="XC";
+         nombre -=90;
+        }
+        while (nombre >=50)
+        {
+         calcul +="L";
+         nombre -=50;
+        }
+        while (nombre >=40)
+        {
+         calcul +="XL";
+         nombre -=40;
+        }
+        while (nombre >=10)
+        {
+         calcul +="X";
+         nombre -=10;
+        }
+        while (nombre >=9)
+        {
+         calcul +="IX";
+         nombre -=9;
+        }
+        while (nombre >=5)
+        {
+         calcul +="V";
+         nombre -=5;
+        }
+        while (nombre >=4)
+        {
+         calcul +="IV";
+         nombre -=4;
+        }
+        while (nombre >=1)
+        {
+         calcul +="I";
+         nombre -=1;
+        }
+        return calcul;
     }
 
 }
