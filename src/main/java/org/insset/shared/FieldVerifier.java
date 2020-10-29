@@ -176,7 +176,7 @@ public class FieldVerifier {
 
         // Année ------------------------------
         if (Integer.parseInt(annee) < 1000 ||
-                Integer.parseInt(annee) > Calendar.getInstance().get(Calendar.YEAR))
+                Integer.parseInt(annee) > 2020)
             return false;
         
         return true;
