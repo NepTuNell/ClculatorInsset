@@ -180,14 +180,14 @@ public class CalculatorRomainPresenter extends Composite {
         //Verif
         if (!FieldVerifier.isValidDate(valD.getText())) {
             errorLabelD.addStyleName("serverResponseLabelError");
-            errorLabelD.setText("Format incorect");
+            errorLabelD.setText("Format incorrect");
             return;
         }
         //call server
         service.convertDateYears(valD.getText(), new AsyncCallback<String>() {
             public void onFailure(Throwable caught) {
-                /*errorLabelD.addStyleName("serverResponseLabelError");
-                errorLabelD.setText("Format incorect");*/
+                errorLabelD.addStyleName("serverResponseLabelError");
+                errorLabelD.setText("Format incorect");
                 return;
             }
 

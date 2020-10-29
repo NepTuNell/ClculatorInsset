@@ -94,6 +94,15 @@ public class FieldVerifier {
         if (date.length() != 10)
             return false;
         
+        char[] caracters = date.toCharArray();
+        
+        for (char j : caracters) {
+            int val = (int)j;
+            if(val > 9 && val != 47) {
+                return false;
+            }
+        }
+        
         // ---------------------------------------------
         // 2 - Séparer les blocs
         // ---------------------------------------------
