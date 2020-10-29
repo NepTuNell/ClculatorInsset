@@ -69,7 +69,7 @@ public class FieldVerifierTest {
     public void testIsNotValidRoman() {
         FieldVerifier service = new FieldVerifier();
         boolean result = service.isValidRoman("S");
-        assertEquals(false, result);
+        assertFalse("Ok", result);
     }
 
     /**
